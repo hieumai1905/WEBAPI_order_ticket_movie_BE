@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\WEBAPI_order_ticket.props" />
+</Project>

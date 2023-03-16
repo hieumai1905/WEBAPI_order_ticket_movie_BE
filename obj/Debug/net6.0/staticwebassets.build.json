@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "NiZVz2xMAHGkafzfwpdrzc0vZSH4P6zIA0ZS5NYrcKA=",
+  "Source": "WEBAPI_order_ticket",
+  "BasePath": "_content/WEBAPI_order_ticket",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
