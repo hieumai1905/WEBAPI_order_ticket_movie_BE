@@ -6,10 +6,12 @@ namespace WEBAPI_order_ticket.Repositories.UserRepository
     public class UserRepository : IUserRepository
     {
         private readonly OrderTicketContext _context;
+
         public UserRepository(OrderTicketContext dbContext)
         {
             _context = dbContext;
         }
+
         public async Task<User> AddAsync(User entity)
         {
             try
@@ -33,6 +35,7 @@ namespace WEBAPI_order_ticket.Repositories.UserRepository
                 {
                     throw new ArgumentException($"User with id {key} does not exist");
                 }
+
                 _context.Users.Remove(userDelete);
                 await _context.SaveChangesAsync();
             }
@@ -42,7 +45,24 @@ namespace WEBAPI_order_ticket.Repositories.UserRepository
             }
         }
 
-        public async Task<User> GetByIdAsync(string key)
+        public async Task<User> LoginUser(User user)
+        {
+            try
+            {
+                var userCurrent =
+                    _context.Users.First(x =>
+                        (x.Email == user.Email && x.Password == user.Password) ||
+                        (x.Phone == user.Phone && x.Password == user.Password));
+                return userCurrent;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while finding user with Email {user.Email}.", ex);
+            }
+        }
+
+
+        public async Task<User?> GetByIdAsync(string key)
         {
             try
             {
@@ -70,11 +90,13 @@ namespace WEBAPI_order_ticket.Repositories.UserRepository
         {
             try
             {
-                var userUpdate = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.UserId == entity.UserId);
+                var userUpdate =
+                    await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.UserId == entity.UserId);
                 if (userUpdate == null)
                 {
                     throw new ArgumentException($"User with id {entity.UserId} does not exist");
                 }
+
                 _context.Users.Update(entity);
                 await _context.SaveChangesAsync().ConfigureAwait(false);
             }

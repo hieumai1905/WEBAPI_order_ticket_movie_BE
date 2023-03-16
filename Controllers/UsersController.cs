@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 using WEBAPI_order_ticket.Models;
 using WEBAPI_order_ticket.Repositories.UserRepository;
 
 namespace WEBAPI_order_ticket.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -16,7 +17,7 @@ namespace WEBAPI_order_ticket.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpGet]
+        [HttpGet("users")]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUser()
         {
             try
@@ -29,7 +30,8 @@ namespace WEBAPI_order_ticket.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpGet("{id}")]
+
+        [HttpGet("users/{id}")]
         public async Task<ActionResult<User>> GetUserById([FromRoute] string id)
         {
             try
@@ -43,7 +45,7 @@ namespace WEBAPI_order_ticket.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("users")]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
             try
@@ -58,13 +60,14 @@ namespace WEBAPI_order_ticket.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("users")]
         public async Task<IActionResult> UpdateUser(User user, string id)
         {
             if (id != user.UserId)
             {
                 return BadRequest();
             }
+
             try
             {
                 await _userRepository.UpdateAsync(user, id);
@@ -76,13 +79,27 @@ namespace WEBAPI_order_ticket.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("users")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             try
             {
                 await _userRepository.DeleteAsync(id);
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<User>> LoginUser(User user)
+        {
+            try
+            {
+                var userCurrent = await _userRepository.LoginUser(user);
+                return Ok(userCurrent);
             }
             catch (Exception ex)
             {
