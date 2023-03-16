@@ -66,7 +66,7 @@ namespace WEBAPI_order_ticket.Repositories.UserRepository
         {
             try
             {
-                return await _context.Users.FindAsync(key);
+                return await _context.Users.FirstAsync(u => u.UserId == key);
             }
             catch (Exception ex)
             {

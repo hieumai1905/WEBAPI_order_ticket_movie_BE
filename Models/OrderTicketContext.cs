@@ -194,35 +194,30 @@ public partial class OrderTicketContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("title");
 
-            entity.HasOne(d => d.Genre).WithMany(p => p.Movies)
-                .HasForeignKey(d => d.GenreId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__movies__genre_id__46E78A0C");
-
-            entity.HasMany(d => d.Casts).WithMany(p => p.Movies)
-                .UsingEntity<Dictionary<string, object>>(
-                    "MovieCast",
-                    r => r.HasOne<Cast>().WithMany()
-                        .HasForeignKey("CastId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__movie_cas__cast___52593CB8"),
-                    l => l.HasOne<Movie>().WithMany()
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__movie_cas__movie__5165187F"),
-                    j =>
-                    {
-                        j.HasKey("MovieId", "CastId").HasName("PK__movie_ca__1E81BFB1FDC2C530");
-                        j.ToTable("movie_cast");
-                        j.IndexerProperty<string>("MovieId")
-                            .HasMaxLength(36)
-                            .IsUnicode(false)
-                            .HasColumnName("movie_id");
-                        j.IndexerProperty<string>("CastId")
-                            .HasMaxLength(36)
-                            .IsUnicode(false)
-                            .HasColumnName("cast_id");
-                    });
+            // entity.HasMany(d => d.Casts).WithMany(p => p.Movies)
+            //     .UsingEntity<Dictionary<string, object>>(
+            //         "MovieCast",
+            //         r => r.HasOne<Cast>().WithMany()
+            //             .HasForeignKey("CastId")
+            //             .OnDelete(DeleteBehavior.ClientSetNull)
+            //             .HasConstraintName("FK__movie_cas__cast___52593CB8"),
+            //         l => l.HasOne<Movie>().WithMany()
+            //             .HasForeignKey("MovieId")
+            //             .OnDelete(DeleteBehavior.ClientSetNull)
+            //             .HasConstraintName("FK__movie_cas__movie__5165187F"),
+            //         j =>
+            //         {
+            //             j.HasKey("MovieId", "CastId").HasName("PK__movie_ca__1E81BFB1FDC2C530");
+            //             j.ToTable("movie_cast");
+            //             j.IndexerProperty<string>("MovieId")
+            //                 .HasMaxLength(36)
+            //                 .IsUnicode(false)
+            //                 .HasColumnName("movie_id");
+            //             j.IndexerProperty<string>("CastId")
+            //                 .HasMaxLength(36)
+            //                 .IsUnicode(false)
+            //                 .HasColumnName("cast_id");
+            //         });
         });
 
         modelBuilder.Entity<Room>(entity =>
