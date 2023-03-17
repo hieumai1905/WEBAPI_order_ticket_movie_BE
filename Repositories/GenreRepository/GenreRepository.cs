@@ -62,7 +62,14 @@ public class GenreRepository : IGenreRepository
 
     public async Task<int> GetMaxGenreId()
     {
-        var maxId = _context.Genres.Max(x => x.GenreId);
-        return maxId;
+        try
+        {
+            var maxId = _context.Genres.Max(x => x.GenreId);
+            return maxId;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+        }
     }
 }

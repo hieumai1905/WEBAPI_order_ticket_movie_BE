@@ -6,7 +6,7 @@ using WEBAPI_order_ticket.Repositories.UserRepository;
 
 namespace WEBAPI_order_ticket.Controllers
 {
-    [Route("api/")]
+    [Route("api/users/")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -17,7 +17,7 @@ namespace WEBAPI_order_ticket.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpGet("users")]
+        [HttpGet()]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUser()
         {
             try
@@ -31,7 +31,7 @@ namespace WEBAPI_order_ticket.Controllers
             }
         }
 
-        [HttpGet("users/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUserById([FromRoute] string id)
         {
             try
@@ -45,7 +45,7 @@ namespace WEBAPI_order_ticket.Controllers
             }
         }
 
-        [HttpPost("users")]
+        [HttpPost("register")]
         public async Task<ActionResult<User>> CreateUser(User user)
         {
             try
@@ -60,7 +60,7 @@ namespace WEBAPI_order_ticket.Controllers
             }
         }
 
-        [HttpPut("users")]
+        [HttpPut()]
         public async Task<IActionResult> UpdateUser(User user, string id)
         {
             if (id != user.UserId)
@@ -79,7 +79,7 @@ namespace WEBAPI_order_ticket.Controllers
             }
         }
 
-        [HttpDelete("users")]
+        [HttpDelete()]
         public async Task<IActionResult> DeleteUser(string id)
         {
             try

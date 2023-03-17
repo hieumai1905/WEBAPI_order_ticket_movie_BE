@@ -1,4 +1,5 @@
 using WEBAPI_order_ticket.Models;
+using WEBAPI_order_ticket.Repositories.CastRepository;
 using WEBAPI_order_ticket.Repositories.GenreRepository;
 using WEBAPI_order_ticket.Repositories.MovieRepository;
 using WEBAPI_order_ticket.Repositories.UserRepository;
@@ -20,6 +21,7 @@ namespace WEBAPI_order_ticket
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IMovieRepository, MovieRepository>();
             builder.Services.AddScoped<IGenreRepository, GenreRepository>();
+            builder.Services.AddScoped<ICastRepository, CastRepository>();
 
             //----------------------------------------------------------------------//
 
