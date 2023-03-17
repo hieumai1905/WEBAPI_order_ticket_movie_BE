@@ -5,9 +5,9 @@ namespace WEBAPI_order_ticket.Models;
 
 public partial class Ticket
 {
-    public string TicketId { get; set; } = null!;
+    public string TicketId { get; set; } = ""!;
 
-    public DateTime PurchaseAt { get; set; }
+    public DateTime PurchaseAt { get; set; } = DateTime.Now;
 
     public int Price { get; set; }
 
@@ -16,10 +16,4 @@ public partial class Ticket
     public string ScheduleId { get; set; } = null!;
 
     public int SeatId { get; set; }
-
-    public virtual Invoice Invoice { get; set; } = null!;
-
-    public virtual Schedule Schedule { get; set; } = null!;
-
-    public virtual Seat Seat { get; set; } = null!;
 }

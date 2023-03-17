@@ -89,7 +89,6 @@ public class MovieRepository : IMovieRepository
 
     public async Task<IEnumerable<Movie>> GetMovieByGenreAsync(int genreId)
     {
-        // lay ra tat ca phim co id genre la genreId
         try
         {
             var movies = _context.Movies.Where(x => x.GenreId == genreId).ToList();

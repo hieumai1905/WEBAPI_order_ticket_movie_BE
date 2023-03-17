@@ -18,7 +18,7 @@ namespace WEBAPI_order_ticket.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<Cast>>> GetAllMovie()
+        public async Task<ActionResult<IEnumerable<Cast>>> GetAllCast()
         {
             try
             {
@@ -31,7 +31,7 @@ namespace WEBAPI_order_ticket.Controllers
             }
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cast>> GetMovieById([FromRoute] string id)
+        public async Task<ActionResult<Cast>> GetCastById([FromRoute] string id)
         {
             try
             {
@@ -45,13 +45,13 @@ namespace WEBAPI_order_ticket.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<Cast>> CreateMovie(Cast cast)
+        public async Task<ActionResult<Cast>> CreateCast(Cast cast)
         {
             try
             {
                 cast.CastId = Guid.NewGuid().ToString();
                 var newCast = await _castRepository.AddAsync(cast);
-                return CreatedAtAction(nameof(GetMovieById), new { id = newCast.CastId }, newCast);
+                return CreatedAtAction(nameof(GetCastById), new { id = newCast.CastId }, newCast);
             }
             catch (Exception ex)
             {

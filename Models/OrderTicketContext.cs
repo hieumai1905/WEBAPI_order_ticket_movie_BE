@@ -37,7 +37,7 @@ public partial class OrderTicketContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-O4EGSIC\\SQLEXPRESS;Initial Catalog=order_ticket;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        => optionsBuilder.UseSqlServer("Data Source=HIEU-MAI\\SQLEXPRESS;Initial Catalog=order_ticket;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -241,10 +241,7 @@ public partial class OrderTicketContext : DbContext
                 .HasColumnName("name");
             entity.Property(e => e.NumberSeats).HasColumnName("number_seats");
 
-            entity.HasOne(d => d.IdCinemaNavigation).WithMany(p => p.Rooms)
-                .HasForeignKey(d => d.IdCinema)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__rooms__Id_cinema__3E52440B");
+        
         });
 
         modelBuilder.Entity<Schedule>(entity =>
@@ -301,10 +298,6 @@ public partial class OrderTicketContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("type_seat");
 
-            entity.HasOne(d => d.Room).WithMany(p => p.Seats)
-                .HasForeignKey(d => d.RoomId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__seats__room_id__412EB0B6");
         });
 
         modelBuilder.Entity<Ticket>(entity =>
@@ -331,20 +324,6 @@ public partial class OrderTicketContext : DbContext
                 .HasColumnName("schedule_id");
             entity.Property(e => e.SeatId).HasColumnName("seat_id");
 
-            entity.HasOne(d => d.Invoice).WithMany(p => p.Tickets)
-                .HasForeignKey(d => d.InvoiceId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__tickets__invoice__4CA06362");
-
-            entity.HasOne(d => d.Schedule).WithMany(p => p.Tickets)
-                .HasForeignKey(d => d.ScheduleId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__tickets__schedul__4D94879B");
-
-            entity.HasOne(d => d.Seat).WithMany(p => p.Tickets)
-                .HasForeignKey(d => d.SeatId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__tickets__seat_id__4E88ABD4");
         });
 
         modelBuilder.Entity<User>(entity =>

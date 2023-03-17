@@ -26,7 +26,6 @@ public partial class Movie
     public int AgeRating { get; set; }
 
     public int GenreId { get; set; }
-    //public virtual ICollection<Schedule> Schedules { get; } = new List<Schedule>();
 
     public virtual ICollection<Cast> Casts { get; } = new List<Cast>();
 

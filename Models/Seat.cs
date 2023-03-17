@@ -15,7 +15,4 @@ public partial class Seat
 
     public string RoomId { get; set; } = null!;
 
-    public virtual Room Room { get; set; } = null!;
-
-    public virtual ICollection<Ticket> Tickets { get; } = new List<Ticket>();
 }

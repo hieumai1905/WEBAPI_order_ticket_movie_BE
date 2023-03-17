@@ -14,7 +14,7 @@ public class GenresController : ControllerBase
     {
         _genreRepository = genreRepository;
     }
-    
+
     [HttpGet("genres")]
     public async Task<ActionResult<IEnumerable<Genre>>> GetAllMovie()
     {
@@ -28,7 +28,7 @@ public class GenresController : ControllerBase
             return StatusCode(500, ex.Message);
         }
     }
-    
+
     [HttpGet("genres/{id}")]
     public async Task<ActionResult<Genre>> GetMovieById([FromRoute] int id)
     {
@@ -47,7 +47,7 @@ public class GenresController : ControllerBase
     {
         try
         {
-            var maxGenreId = await _genreRepository.GetMaxGenreId();            
+            var maxGenreId = await _genreRepository.GetMaxGenreId();
             genre.GenreId = maxGenreId + 1;
             var newGenre = await _genreRepository.AddAsync(genre);
             return CreatedAtAction(nameof(GetMovieById), new { id = newGenre.GenreId }, newGenre);

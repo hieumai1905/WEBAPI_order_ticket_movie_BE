@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace WEBAPI_order_ticket.Models;
 
 public partial class Room
 {
-    public string RoomId { get; set; } = null!;
+    public string RoomId { get; set; } = ""!;
 
     public int NumberSeats { get; set; }
 
@@ -14,8 +15,4 @@ public partial class Room
     public int AvailableSeats { get; set; }
 
     public string IdCinema { get; set; } = null!;
-
-    public virtual Cinema IdCinemaNavigation { get; set; } = null!;
-
-    public virtual ICollection<Seat> Seats { get; } = new List<Seat>();
 }
