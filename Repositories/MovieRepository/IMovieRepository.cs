@@ -8,4 +8,6 @@ public interface IMovieRepository : IGeneralRepository<Movie, string>
     Task<IEnumerable<Movie>> GetMovieByGenreAsync(int genreId);
     Task<IEnumerable<Movie>> GetMovieNowShow();
     Task<IEnumerable<Movie>> GetMovieCommingShow();
+
+    Task<IEnumerable<Movie>> GetMovieByCinema(string cinemaId);
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace WEBAPI_order_ticket.Models;
 
@@ -28,6 +29,6 @@ public partial class Movie
     public int GenreId { get; set; }
 
     public virtual ICollection<Cast> Casts { get; } = new List<Cast>();
-
+    [JsonIgnore]
     public virtual ICollection<Cinema> IdCinemas { get; } = new List<Cinema>();
 }

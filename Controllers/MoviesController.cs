@@ -88,6 +88,22 @@ public class MoviesController : ControllerBase
         }
     }
 
+
+    [HttpGet]
+    [Route("cinemas")]
+    public async Task<ActionResult<IEnumerable<Movie>>> GetMovieAtCinema([FromQuery] string id)
+    {
+        try
+        {
+            var movies = await _movieRepository.GetMovieByCinema(id);
+            return Ok(movies);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
     [HttpPut()]
     public async Task<IActionResult> UpdateMovie(Movie movie, string id)
     {

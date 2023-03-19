@@ -69,6 +69,19 @@ namespace WEBAPI_order_ticket.Repositories.CinemaRepository
             }
         }
 
+        public async Task<IEnumerable<Cinema>> GetCinemaShowMovie(string idMovie)
+        {
+            try
+            {
+                var cinemas = await _context.Cinemas.Where(x => x.Movies.Any(y => y.MovieId == idMovie)).ToListAsync();
+                return cinemas;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while getting cineme show movie.", ex);
+            }
+        }
+
         public Task UpdateAsync(Cinema entity, string key)
         {
             throw new NotImplementedException();

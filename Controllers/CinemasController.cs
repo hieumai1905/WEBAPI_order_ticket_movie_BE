@@ -56,6 +56,20 @@ namespace WEBAPI_order_ticket.Controllers
             }
         }
 
+        [HttpGet("movies")]
+        public async Task<ActionResult<Cinema>> GetCinemaShowMovie([FromQuery] string id)
+        {
+            try
+            {
+                var cinemas = await _cinemaRepository.GetCinemaShowMovie(id);
+                return Ok(cinemas);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPost()]
         public async Task<ActionResult<Cinema>> CreateCinema(Cinema cinemas)
         {

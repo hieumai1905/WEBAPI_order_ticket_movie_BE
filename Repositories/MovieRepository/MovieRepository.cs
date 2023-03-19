@@ -140,4 +140,21 @@ public class MovieRepository : IMovieRepository
             throw new Exception($"An error occurred while getting movie comming show.", ex);
         }
     }
+
+    public async Task<IEnumerable<Movie>> GetMovieByCinema(string cinemaId)
+    {
+        try
+        {
+            var cinema = await _context.Cinemas.FindAsync(cinemaId);
+            if (cinema == null)
+            {
+                throw new Exception($"Don't have movie at cinema.");
+            }
+            return cinema.Movies;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"An error occurred while getting movie at cinema.", ex);
+        }
+    }
 }

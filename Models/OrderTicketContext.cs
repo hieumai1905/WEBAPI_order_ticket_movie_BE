@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,7 +39,7 @@ public partial class OrderTicketContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=HIEU-MAI\\SQLEXPRESS;Initial Catalog=order_ticket;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+        => optionsBuilder.UseSqlServer("Data Source=HIEU-MAI\\SQLEXPRESS;Initial Catalog=order_ticket;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False").UseLazyLoadingProxies();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -76,6 +78,10 @@ public partial class OrderTicketContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("addres_cinama");
+            entity.Property(e => e.ImageCinema)
+                .HasMaxLength(200)
+                .IsUnicode(false)
+                .HasColumnName("image_cinema");
             entity.Property(e => e.NameCinema)
                 .HasMaxLength(50)
                 .IsUnicode(false)
@@ -194,30 +200,30 @@ public partial class OrderTicketContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("title");
 
-            // entity.HasMany(d => d.Casts).WithMany(p => p.Movies)
-            //     .UsingEntity<Dictionary<string, object>>(
-            //         "MovieCast",
-            //         r => r.HasOne<Cast>().WithMany()
-            //             .HasForeignKey("CastId")
-            //             .OnDelete(DeleteBehavior.ClientSetNull)
-            //             .HasConstraintName("FK__movie_cas__cast___52593CB8"),
-            //         l => l.HasOne<Movie>().WithMany()
-            //             .HasForeignKey("MovieId")
-            //             .OnDelete(DeleteBehavior.ClientSetNull)
-            //             .HasConstraintName("FK__movie_cas__movie__5165187F"),
-            //         j =>
-            //         {
-            //             j.HasKey("MovieId", "CastId").HasName("PK__movie_ca__1E81BFB1FDC2C530");
-            //             j.ToTable("movie_cast");
-            //             j.IndexerProperty<string>("MovieId")
-            //                 .HasMaxLength(36)
-            //                 .IsUnicode(false)
-            //                 .HasColumnName("movie_id");
-            //             j.IndexerProperty<string>("CastId")
-            //                 .HasMaxLength(36)
-            //                 .IsUnicode(false)
-            //                 .HasColumnName("cast_id");
-            //         });
+            entity.HasMany(d => d.Casts).WithMany(p => p.Movies)
+                .UsingEntity<Dictionary<string, object>>(
+                    "MovieCast",
+                    r => r.HasOne<Cast>().WithMany()
+                        .HasForeignKey("CastId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__movie_cas__cast___52593CB8"),
+                    l => l.HasOne<Movie>().WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK__movie_cas__movie__5165187F"),
+                    j =>
+                    {
+                        j.HasKey("MovieId", "CastId").HasName("PK__movie_ca__1E81BFB1FDC2C530");
+                        j.ToTable("movie_cast");
+                        j.IndexerProperty<string>("MovieId")
+                            .HasMaxLength(36)
+                            .IsUnicode(false)
+                            .HasColumnName("movie_id");
+                        j.IndexerProperty<string>("CastId")
+                            .HasMaxLength(36)
+                            .IsUnicode(false)
+                            .HasColumnName("cast_id");
+                    });
         });
 
         modelBuilder.Entity<Room>(entity =>
@@ -241,7 +247,7 @@ public partial class OrderTicketContext : DbContext
                 .HasColumnName("name");
             entity.Property(e => e.NumberSeats).HasColumnName("number_seats");
 
-        
+
         });
 
         modelBuilder.Entity<Schedule>(entity =>
