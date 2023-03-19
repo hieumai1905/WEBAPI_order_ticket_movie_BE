@@ -75,11 +75,59 @@ public class MoviesController : ControllerBase
 
     [HttpGet]
     [Route("search/genres")]
-    public async Task<ActionResult<IEnumerable<Movie>>> GetMovieByGenre([FromQuery] int genreId)
+    public async Task<ActionResult<IEnumerable<Movie>>> GetMovieByGenre([FromQuery] int id)
     {
         try
         {
-            var movies = await _movieRepository.GetMovieByGenreAsync(genreId);
+            var movies = await _movieRepository.GetMovieByGenreAsync(id);
+            return Ok(movies);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpPut()]
+    public async Task<IActionResult> UpdateMovie(Movie movie, string id)
+    {
+        if (id != movie.MovieId)
+        {
+            return BadRequest();
+        }
+
+        try
+        {
+            await _movieRepository.UpdateAsync(movie, id);
+            return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
+    [HttpGet]
+    [Route("now-show")]
+    public async Task<ActionResult<IEnumerable<Movie>>> GetMovieNowShow()
+    {
+        try
+        {
+            var movies = await _movieRepository.GetMovieNowShow();
+            return Ok(movies);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+    [HttpGet]
+    [Route("comming-show")]
+    public async Task<ActionResult<IEnumerable<Movie>>> GetMovieCommingShow()
+    {
+        try
+        {
+            var movies = await _movieRepository.GetMovieCommingShow();
             return Ok(movies);
         }
         catch (Exception ex)

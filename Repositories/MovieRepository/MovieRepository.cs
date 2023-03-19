@@ -50,9 +50,24 @@ public class MovieRepository : IMovieRepository
         }
     }
 
-    public Task UpdateAsync(Movie entity, string key)
+    public async Task UpdateAsync(Movie entity, string key)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var movieUpdate =
+                await _context.Movies.AsNoTracking().FirstOrDefaultAsync(x => x.MovieId == entity.MovieId);
+            if (movieUpdate == null)
+            {
+                throw new ArgumentException($"Movie with id {entity.MovieId} does not exist");
+            }
+
+            _context.Movies.Update(entity);
+            await _context.SaveChangesAsync().ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"An error occurred while updating movie with id {entity.MovieId}.", ex);
+        }
     }
 
     public async Task DeleteAsync(string key)
@@ -97,6 +112,32 @@ public class MovieRepository : IMovieRepository
         catch (Exception ex)
         {
             throw new Exception($"An error occurred while getting movie with genre id {genreId}.", ex);
+        }
+    }
+
+    public async Task<IEnumerable<Movie>> GetMovieNowShow()
+    {
+        try
+        {
+            var movies = await _context.Movies.Where(u => u.ReleasedDate <= DateTime.Now).ToListAsync();
+            return movies;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"An error occurred while getting movie now show.", ex);
+        }
+    }
+
+    public async Task<IEnumerable<Movie>> GetMovieCommingShow()
+    {
+        try
+        {
+            var movies = await _context.Movies.Where(u => u.ReleasedDate > DateTime.Now).ToListAsync();
+            return movies;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"An error occurred while getting movie comming show.", ex);
         }
     }
 }
