@@ -12,7 +12,7 @@ public partial class Cinema
 
     public string ImageCinema { get; set; } = null!;
 
-    public string AddresCinama { get; set; } = null!;
+    public string AddressCinema { get; set; } = null!;
 
     public string PhoneCinema { get; set; } = null!;
 

@@ -42,12 +42,25 @@ namespace WEBAPI_order_ticket.Controllers
             }
         }
 
-        [HttpGet("search/{name}")]
-        public async Task<ActionResult<Cinema>> GetCinemaContainName([FromRoute] string name)
+        [HttpGet("search/name")]
+        public async Task<ActionResult<Cinema>> GetCinemaContainName([FromQuery] string q)
         {
             try
             {
                 var cinemas = await _cinemaRepository.GetAllAsync();
+                return Ok(cinemas);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        [HttpGet("search/cities")]
+        public async Task<ActionResult<Cinema>> GetCinemaInCity([FromQuery] string city)
+        {
+            try
+            {
+                var cinemas = await _cinemaRepository.GetCinemaByCity(city);
                 return Ok(cinemas);
             }
             catch (Exception ex)

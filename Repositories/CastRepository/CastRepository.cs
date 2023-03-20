@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WEBAPI_order_ticket.Models;
 
 namespace WEBAPI_order_ticket.Repositories.CastRepository
@@ -34,7 +35,7 @@ namespace WEBAPI_order_ticket.Repositories.CastRepository
         {
             try
             {
-                return await _context.Casts.Include(x=>x.Movies).ToListAsync();
+                return await _context.Casts.Include(x => x.Movies).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -51,6 +52,18 @@ namespace WEBAPI_order_ticket.Repositories.CastRepository
             catch (Exception ex)
             {
                 throw new Exception($"An error occurred while getting genre with id {key}.", ex);
+            }
+        }
+
+        public async Task<IEnumerable<Cast>> getCastsInMovie(string movieId)
+        {
+            try
+            {
+                return await _context.Casts.Where(x => x.Movies.Any(y => y.MovieId == movieId)).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while getting cast in movie.", ex);
             }
         }
 

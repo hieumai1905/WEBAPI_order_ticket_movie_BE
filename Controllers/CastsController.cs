@@ -58,5 +58,19 @@ namespace WEBAPI_order_ticket.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpGet("movies")]
+        public async Task<ActionResult<Cast>> GetAllCastInMovie(string id)
+        {
+            try
+            {
+                var casts = await _castRepository.getCastsInMovie(id);
+                return Ok(casts);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

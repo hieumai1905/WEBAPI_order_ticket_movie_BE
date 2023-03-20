@@ -36,7 +36,7 @@ namespace WEBAPI_order_ticket.Repositories.CinemaRepository
         {
             try
             {
-                return await _context.Cinemas.Include(x=>x.Movies).ToListAsync();
+                return await _context.Cinemas.Include(x => x.Movies).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -53,6 +53,19 @@ namespace WEBAPI_order_ticket.Repositories.CinemaRepository
             catch (Exception ex)
             {
                 throw new Exception($"An error occurred while getting genre with id {key}.", ex);
+            }
+        }
+
+        public async Task<IEnumerable<Cinema>> GetCinemaByCity(string cityName)
+        {
+            try
+            {
+                var cinemas = await _context.Cinemas.Include(x => x.Movies).Where(x => x.AddressCinema.Contains(cityName)).ToListAsync();
+                return cinemas;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while getting cinema at city {cityName}.", ex);
             }
         }
 
@@ -86,7 +99,5 @@ namespace WEBAPI_order_ticket.Repositories.CinemaRepository
         {
             throw new NotImplementedException();
         }
-
-
     }
 }

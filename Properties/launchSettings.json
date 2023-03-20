@@ -1,23 +1,14 @@
 {
-  "$schema": "https://json.schemastore.org/launchsettings.json",
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:45988",
-      "sslPort": 44344
-    }
-  },
   "profiles": {
     "WEBAPI_order_ticket": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7221;http://localhost:5220",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://192.168.0.101:8080;http://localhost:7221"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -30,5 +21,14 @@
   },
   "ConnectionStrings": {
     "DefaultConnection": "Data Source=HIEU-MAI\\SQLEXPRESS;Initial Catalog=order_ticket;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:45988",
+      "sslPort": 44344
+    }
   }
 }

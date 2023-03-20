@@ -3853,19 +3853,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\maiva\\.nuget\\packages\\": {}
+    "C:\\Users\\pc\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ProjectAndroid\\WEBAPI_order_ticket\\WEBAPI_order_ticket.csproj",
+      "projectUniqueName": "H:\\BTL_mobile\\New_version\\WEBAPI_order_ticket\\WEBAPI_order_ticket.csproj",
       "projectName": "WEBAPI_order_ticket",
-      "projectPath": "E:\\ProjectAndroid\\WEBAPI_order_ticket\\WEBAPI_order_ticket.csproj",
-      "packagesPath": "C:\\Users\\maiva\\.nuget\\packages\\",
-      "outputPath": "E:\\ProjectAndroid\\WEBAPI_order_ticket\\obj\\",
+      "projectPath": "H:\\BTL_mobile\\New_version\\WEBAPI_order_ticket\\WEBAPI_order_ticket.csproj",
+      "packagesPath": "C:\\Users\\pc\\.nuget\\packages\\",
+      "outputPath": "H:\\BTL_mobile\\New_version\\WEBAPI_order_ticket\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\maiva\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3939,7 +3939,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

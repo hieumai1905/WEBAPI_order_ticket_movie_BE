@@ -6,5 +6,6 @@ namespace WEBAPI_order_ticket.Repositories.CinemaRepository
     {
         Task<IEnumerable<Cinema>> GetCinemaContainName(string name);
         Task<IEnumerable<Cinema>> GetCinemaShowMovie(string idMovie);
+        Task<IEnumerable<Cinema>> GetCinemaByCity(string cityName);
     }
 }
