@@ -34,7 +34,7 @@ namespace WEBAPI_order_ticket.Repositories.CastRepository
         {
             try
             {
-                return await _context.Casts.ToListAsync();
+                return await _context.Casts.Include(x=>x.Movies).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -46,7 +46,7 @@ namespace WEBAPI_order_ticket.Repositories.CastRepository
         {
             try
             {
-                return await _context.Casts.FirstAsync(u => u.CastId == key);
+                return await _context.Casts.Include(x => x.Movies).FirstAsync(u => u.CastId == key);
             }
             catch (Exception ex)
             {

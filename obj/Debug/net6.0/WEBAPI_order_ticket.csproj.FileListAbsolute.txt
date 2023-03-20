@@ -174,3 +174,5 @@ E:\ProjectAndroid\WEBAPI_order_ticket\obj\Debug\net6.0\WEBAPI_order_ticket.genru
 E:\ProjectAndroid\WEBAPI_order_ticket\obj\Debug\net6.0\ref\WEBAPI_order_ticket.dll
 H:\BTL_mobile\WEBAPI_order_ticket\bin\Debug\net6.0\Castle.Core.dll
 H:\BTL_mobile\WEBAPI_order_ticket\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll
+E:\ProjectAndroid\WEBAPI_order_ticket\bin\Debug\net6.0\Castle.Core.dll
+E:\ProjectAndroid\WEBAPI_order_ticket\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll

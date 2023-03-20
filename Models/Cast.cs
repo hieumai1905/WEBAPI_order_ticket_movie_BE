@@ -14,6 +14,5 @@ public partial class Cast
 
     public string Nationality { get; set; } = null!;
 
-    [JsonIgnore]
     public virtual ICollection<Movie> Movies { get; } = new List<Movie>();
 }

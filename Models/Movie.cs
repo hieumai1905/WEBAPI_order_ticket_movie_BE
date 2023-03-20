@@ -27,7 +27,7 @@ public partial class Movie
     public int AgeRating { get; set; }
 
     public int GenreId { get; set; }
-
+    [JsonIgnore]
     public virtual ICollection<Cast> Casts { get; } = new List<Cast>();
     [JsonIgnore]
     public virtual ICollection<Cinema> IdCinemas { get; } = new List<Cinema>();

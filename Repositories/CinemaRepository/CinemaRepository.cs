@@ -36,7 +36,7 @@ namespace WEBAPI_order_ticket.Repositories.CinemaRepository
         {
             try
             {
-                return await _context.Cinemas.ToListAsync();
+                return await _context.Cinemas.Include(x=>x.Movies).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -48,7 +48,7 @@ namespace WEBAPI_order_ticket.Repositories.CinemaRepository
         {
             try
             {
-                return await _context.Cinemas.FirstAsync(u => u.IdCinema == key);
+                return await _context.Cinemas.Include(x => x.Movies).FirstAsync(u => u.IdCinema == key);
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace WEBAPI_order_ticket.Repositories.CinemaRepository
         {
             try
             {
-                var cinemas = await _context.Cinemas.Where(x => x.NameCinema.Contains(name)).ToListAsync();
+                var cinemas = await _context.Cinemas.Include(x => x.Movies).Where(x => x.NameCinema.Contains(name)).ToListAsync();
                 return cinemas;
             }
             catch (Exception ex)
@@ -73,7 +73,7 @@ namespace WEBAPI_order_ticket.Repositories.CinemaRepository
         {
             try
             {
-                var cinemas = await _context.Cinemas.Where(x => x.Movies.Any(y => y.MovieId == idMovie)).ToListAsync();
+                var cinemas = await _context.Cinemas.Include(x => x.Movies).Where(x => x.Movies.Any(y => y.MovieId == idMovie)).ToListAsync();
                 return cinemas;
             }
             catch (Exception ex)
