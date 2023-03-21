@@ -70,5 +70,22 @@ namespace WEBAPI_order_ticket.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpPut()]
+        public async Task<IActionResult> UpdateSeat(Seat seat, int id)
+        {
+            if (seat.SeatId != id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                await _seatRepository.UpdateAsync(seat, id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

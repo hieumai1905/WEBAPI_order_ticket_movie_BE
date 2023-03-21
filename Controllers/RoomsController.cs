@@ -71,5 +71,22 @@ namespace WEBAPI_order_ticket.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpPut]
+        public async Task<IActionResult> UpdateRoom(Room room, string id)
+        {
+            if (room.RoomId != id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                await _roomRepository.UpdateAsync(room, id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

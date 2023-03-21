@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\Controllers",
-    "\\Models"
+    "\\Models",
+    "\\Repositories",
+    "\\Repositories\\CinemaRepository"
   ],
-  "SelectedNode": "\\WEBAPI_order_ticket.sln",
+  "SelectedNode": "\\Repositories\\CinemaRepository\\CinemaRepository.cs",
   "PreviewInSolutionExplorer": false
 }
