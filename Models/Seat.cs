@@ -14,5 +14,5 @@ public partial class Seat
     public string TypeSeat { get; set; } = null!;
 
     public string RoomId { get; set; } = null!;
-
+    public string ScheduleId { get; set; } = null!;
 }

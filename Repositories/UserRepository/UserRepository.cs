@@ -61,6 +61,26 @@ namespace WEBAPI_order_ticket.Repositories.UserRepository
             }
         }
 
+        public bool CheckExitsEmailAsync(string email)
+        {
+            try
+            {
+                var user = _context.Users.FirstOrDefault(x => x.Email == email);
+                if (user == null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while finding user with Email {email}.", ex);
+            }
+        }
+
 
         public async Task<User?> GetByIdAsync(string key)
         {

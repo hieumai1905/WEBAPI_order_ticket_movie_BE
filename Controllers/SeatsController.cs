@@ -29,6 +29,7 @@ namespace WEBAPI_order_ticket.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Seat>> GetSeatById([FromRoute] int id)
         {
@@ -42,6 +43,7 @@ namespace WEBAPI_order_ticket.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
         [HttpGet("seats/{idRoom}")]
         public async Task<ActionResult<Seat>> GetSeatByIdRoom([FromRoute] string idRoom)
         {
@@ -55,6 +57,7 @@ namespace WEBAPI_order_ticket.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
         [HttpPost()]
         public async Task<ActionResult<Seat>> CreateSeat(Seat seat)
         {
@@ -70,6 +73,7 @@ namespace WEBAPI_order_ticket.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
         [HttpPut()]
         public async Task<IActionResult> UpdateSeat(Seat seat, int id)
         {
@@ -77,9 +81,38 @@ namespace WEBAPI_order_ticket.Controllers
             {
                 return BadRequest();
             }
+
             try
             {
                 await _seatRepository.UpdateAsync(seat, id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("schedules/{idSchedule}")]
+        public async Task<ActionResult<Seat>> GetSeatByIdSchedule([FromRoute] string idSchedule)
+        {
+            try
+            {
+                var seats = await _seatRepository.GetAllByIdSchedule(idSchedule);
+                return Ok(seats);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPut("schedules/{idSchedule}")]
+        public async Task<IActionResult> UpdateSeatForSchedule(string idSchedule, string rowNumber)
+        {
+            try
+            {
+                await _seatRepository.UpdateStatusSeat(idSchedule, rowNumber);
                 return NoContent();
             }
             catch (Exception ex)

@@ -11,6 +11,7 @@ namespace WEBAPI_order_ticket.Repositories.InvoicesRepository
         {
             _context = dbContext;
         }
+
         public async Task<Invoice> AddAsync(Invoice entity)
         {
             try
@@ -46,7 +47,8 @@ namespace WEBAPI_order_ticket.Repositories.InvoicesRepository
         {
             try
             {
-                var roomByIdCinemas = await _context.Invoices.Where(x => x.UserId == idUser).ToListAsync();
+                var roomByIdCinemas =
+                    await _context.Invoices.Where(x => x.UserId == idUser).OrderBy(x => x.CreateAt).ToListAsync();
                 return roomByIdCinemas;
             }
             catch (Exception ex)
@@ -71,7 +73,5 @@ namespace WEBAPI_order_ticket.Repositories.InvoicesRepository
         {
             throw new NotImplementedException();
         }
-
-
     }
 }

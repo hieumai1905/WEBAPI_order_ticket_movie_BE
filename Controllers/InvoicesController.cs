@@ -42,7 +42,7 @@ namespace WEBAPI_order_ticket.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpGet("invoices/{idUser}")]
+        [HttpGet("users/{idUser}")]
         public async Task<ActionResult<Invoice>> GetInvoiceByIdUser([FromRoute] string idUser)
         {
             try

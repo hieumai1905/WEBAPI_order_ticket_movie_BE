@@ -47,7 +47,8 @@ namespace WEBAPI_order_ticket.Repositories.SeatRepository
         {
             try
             {
-                var roomByIdCinemas = await _context.Seats.Where(x => x.Status == "AVAILABLE" && x.RoomId == idRoom).ToListAsync();
+                var roomByIdCinemas = await _context.Seats.Where(x => x.Status == "AVAILABLE" && x.RoomId == idRoom)
+                    .ToListAsync();
                 return roomByIdCinemas;
             }
             catch (Exception ex)
@@ -85,12 +86,13 @@ namespace WEBAPI_order_ticket.Repositories.SeatRepository
         {
             try
             {
-                var userUpdate =
+                var seatUpdate =
                     await _context.Seats.AsNoTracking().FirstOrDefaultAsync(x => x.SeatId == entity.SeatId);
-                if (userUpdate == null)
+                if (seatUpdate == null)
                 {
                     throw new ArgumentException($"User with id {entity.SeatId} does not exist");
                 }
+
                 _context.Seats.Update(entity);
                 await _context.SaveChangesAsync().ConfigureAwait(false);
             }
@@ -112,5 +114,40 @@ namespace WEBAPI_order_ticket.Repositories.SeatRepository
                 return 0;
             }
         }
+
+        public async Task<IEnumerable<Seat>> GetAllByIdSchedule(string idSchedule)
+        {
+            try
+            {
+                var seats = await _context.Seats.Where(x => x.ScheduleId == idSchedule).ToListAsync();
+                return seats;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while updating room with id {idSchedule}.", ex);
+            }
+        }
+
+        public async Task UpdateStatusSeat(string scheduleId, string nowNumber)
+        {
+            try
+            {
+                var seatUpdate =
+                    await _context.Seats.AsNoTracking()
+                        .FirstOrDefaultAsync(x => x.RowNumber == nowNumber && x.ScheduleId == scheduleId);
+                if (seatUpdate == null)
+                {
+                    throw new ArgumentException($"User with id {nowNumber} does not exist");
+                }
+
+                seatUpdate.Status = "1";
+                _context.Seats.Update(seatUpdate);
+                await _context.SaveChangesAsync().ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occurred while updating room with id {scheduleId}.", ex);
+            }
+            }
     }
 }

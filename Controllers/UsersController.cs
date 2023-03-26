@@ -50,9 +50,14 @@ namespace WEBAPI_order_ticket.Controllers
         {
             try
             {
+                if (!_userRepository.CheckExitsEmailAsync(user.Email))
+                {
+                    return BadRequest("Email da ton tai");
+                }
+
                 user.UserId = Guid.NewGuid().ToString();
-                var newUser = await _userRepository.AddAsync(user);
-                return CreatedAtAction(nameof(GetUserById), new { id = newUser.UserId }, newUser);
+                var userNew = await _userRepository.AddAsync(user);
+                return Ok(userNew);
             }
             catch (Exception ex)
             {
@@ -61,7 +66,7 @@ namespace WEBAPI_order_ticket.Controllers
         }
 
         [HttpPut()]
-        public async Task<IActionResult> UpdateUser(User user, string id)
+        public async Task<IActionResult> UpdateUser(string id, User user)
         {
             if (id != user.UserId)
             {

@@ -39,7 +39,7 @@ public partial class OrderTicketContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=HIEU-MAI\\SQLEXPRESS;Initial Catalog=order_ticket;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-O4EGSIC\\SQLEXPRESS;Initial Catalog=order_ticket;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -58,11 +58,11 @@ public partial class OrderTicketContext : DbContext
                 .HasColumnName("birth_day");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
-                .IsUnicode(false)
+                .IsUnicode(true)
                 .HasColumnName("name");
             entity.Property(e => e.Nationality)
                 .HasMaxLength(100)
-                .IsUnicode(false)
+                .IsUnicode(true)
                 .HasColumnName("nationality");
         });
 
@@ -76,7 +76,7 @@ public partial class OrderTicketContext : DbContext
                 .HasColumnName("Id_cinema");
             entity.Property(e => e.AddressCinema)
                 .HasMaxLength(200)
-                .IsUnicode(false)
+                .IsUnicode(true)
                 .HasColumnName("address_cinema");
             entity.Property(e => e.ImageCinema)
                 .HasMaxLength(200)
@@ -84,7 +84,7 @@ public partial class OrderTicketContext : DbContext
                 .HasColumnName("image_cinema");
             entity.Property(e => e.NameCinema)
                 .HasMaxLength(50)
-                .IsUnicode(false)
+                .IsUnicode(true)
                 .HasColumnName("name_cinema");
             entity.Property(e => e.PhoneCinema)
                 .HasMaxLength(12)
@@ -173,20 +173,20 @@ public partial class OrderTicketContext : DbContext
             entity.Property(e => e.AgeRating).HasColumnName("age_rating");
             entity.Property(e => e.Country)
                 .HasMaxLength(100)
-                .IsUnicode(false)
+                .IsUnicode(true)
                 .HasColumnName("country");
             entity.Property(e => e.Description)
                 .HasMaxLength(1000)
-                .IsUnicode(false)
+                .IsUnicode(true)
                 .HasColumnName("description");
             entity.Property(e => e.Director)
                 .HasMaxLength(50)
-                .IsUnicode(false);
+                .IsUnicode(true);
             entity.Property(e => e.Duration).HasColumnName("duration");
             entity.Property(e => e.GenreId).HasColumnName("genre_id");
             entity.Property(e => e.Language)
                 .HasMaxLength(100)
-                .IsUnicode(false)
+                .IsUnicode(true)
                 .HasColumnName("language");
             entity.Property(e => e.Poster)
                 .HasMaxLength(200)
@@ -197,7 +197,7 @@ public partial class OrderTicketContext : DbContext
                 .HasColumnName("released_date");
             entity.Property(e => e.Title)
                 .HasMaxLength(300)
-                .IsUnicode(false)
+                .IsUnicode(true)
                 .HasColumnName("title");
 
             entity.HasMany(d => d.Casts).WithMany(p => p.Movies)
@@ -267,15 +267,14 @@ public partial class OrderTicketContext : DbContext
                 .HasMaxLength(36)
                 .IsUnicode(false)
                 .HasColumnName("movie_id");
+            entity.Property(e => e.RoomId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("room_id");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.ShowTime)
                 .HasColumnType("date")
                 .HasColumnName("show_time");
-
-            //entity.HasOne(d => d.Movie).WithMany(p => p.Schedules)
-            //    .HasForeignKey(d => d.MovieId)
-            //    .OnDelete(DeleteBehavior.ClientSetNull)
-            //    .HasConstraintName("FK__schedules__movie__49C3F6B7");
         });
 
         modelBuilder.Entity<Seat>(entity =>
@@ -291,6 +290,10 @@ public partial class OrderTicketContext : DbContext
                 .HasMaxLength(36)
                 .IsUnicode(false)
                 .HasColumnName("room_id");
+            entity.Property(e => e.ScheduleId)
+                .HasMaxLength(36)
+                .IsUnicode(false)
+                .HasColumnName("schedule_id");
             entity.Property(e => e.RowNumber)
                 .HasMaxLength(10)
                 .IsUnicode(false)
@@ -303,7 +306,6 @@ public partial class OrderTicketContext : DbContext
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("type_seat");
-
         });
 
         modelBuilder.Entity<Ticket>(entity =>

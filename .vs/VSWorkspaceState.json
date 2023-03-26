@@ -4,8 +4,7 @@
     "\\Controllers",
     "\\Models",
     "\\Repositories",
-    "\\Repositories\\CinemaRepository"
+    "\\Repositories\\RoomRepository"
   ],
-  "SelectedNode": "\\Repositories\\CinemaRepository\\CinemaRepository.cs",
   "PreviewInSolutionExplorer": false
 }

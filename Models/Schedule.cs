@@ -14,4 +14,5 @@ public partial class Schedule
     public int Price { get; set; }
 
     public string MovieId { get; set; } = null!;
+    public string RoomId { get; set; } = null!;
 }

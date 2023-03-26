@@ -11,6 +11,7 @@ namespace WEBAPI_order_ticket.Repositories.SchedulesRepository
         {
             _context = dbContext;
         }
+
         public async Task<Schedule> AddAsync(Schedule entity)
         {
             try
@@ -34,7 +35,7 @@ namespace WEBAPI_order_ticket.Repositories.SchedulesRepository
         {
             try
             {
-                return await _context.Schedules.ToListAsync();
+                return await _context.Schedules.OrderBy(x => x.ShowTime).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -46,7 +47,8 @@ namespace WEBAPI_order_ticket.Repositories.SchedulesRepository
         {
             try
             {
-                var roomByIdCinemas = await _context.Schedules.Where(x => x.MovieId == idMovie).ToListAsync();
+                var roomByIdCinemas = await _context.Schedules.Where(x => x.MovieId == idMovie).OrderBy(x => x.ShowTime)
+                    .ToListAsync();
                 return roomByIdCinemas;
             }
             catch (Exception ex)

@@ -16,7 +16,7 @@ public class MovieRepository : IMovieRepository
     {
         try
         {
-            return await _context.Movies.ToListAsync();
+            return await _context.Movies.OrderBy(x => x.ReleasedDate).ToListAsync();
         }
         catch (Exception ex)
         {
@@ -93,7 +93,7 @@ public class MovieRepository : IMovieRepository
     {
         try
         {
-            var movies = _context.Movies.Where(x => x.Title.Contains(name)).ToList();
+            var movies = _context.Movies.Where(x => x.Title.Contains(name)).OrderBy(x => x.ReleasedDate).ToList();
             return movies;
         }
         catch (Exception ex)
@@ -119,7 +119,7 @@ public class MovieRepository : IMovieRepository
     {
         try
         {
-            var movies = await _context.Movies.Where(u => u.ReleasedDate <= DateTime.Now).ToListAsync();
+            var movies = await _context.Movies.Where(u => u.ReleasedDate <= DateTime.Now).OrderBy(x => x.ReleasedDate).ToListAsync();
             return movies;
         }
         catch (Exception ex)
@@ -132,7 +132,7 @@ public class MovieRepository : IMovieRepository
     {
         try
         {
-            var movies = await _context.Movies.Where(u => u.ReleasedDate > DateTime.Now).ToListAsync();
+            var movies = await _context.Movies.Where(u => u.ReleasedDate > DateTime.Now).OrderBy(x => x.ReleasedDate).ToListAsync();
             return movies;
         }
         catch (Exception ex)
@@ -150,6 +150,7 @@ public class MovieRepository : IMovieRepository
             {
                 throw new Exception($"Don't have movie at cinema.");
             }
+
             return cinema.Movies;
         }
         catch (Exception ex)
